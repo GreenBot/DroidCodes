@@ -21,7 +21,11 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:19.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    //Core card library
     compile 'com.github.gabrielemariotti.cards:library:1.5.0'
+    //Extra card library, it is required only if you want to use integrations with other libraries
+    compile 'com.github.gabrielemariotti.cards:library-extra:1.5.0'
+    compile 'com.android.support:support-v13:+'
 }
 
 

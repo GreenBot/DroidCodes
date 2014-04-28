@@ -1,23 +1,17 @@
 package org.greenbot.technologies.numcodes;
 
-import android.app.Activity;
-
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +21,9 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.CardView;
 
 
-
-public class MainActivity extends Activity
+public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -67,12 +59,17 @@ public class MainActivity extends Activity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
+
+
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
+
+
+
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
@@ -94,6 +91,8 @@ public class MainActivity extends Activity
                 break;
         }
     }
+
+
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
@@ -155,10 +154,11 @@ public class MainActivity extends Activity
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+
 
             return rootView;
         }
@@ -167,31 +167,12 @@ public class MainActivity extends Activity
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
 
-          //  initCards();
             initCardList();
         }
 
-//        private void initCards() {
-//
-//            //Create a Card
-//            Card card = new Card(getActivity());
-//
-//            //Create a CardHeader
-//            CardHeader header = new CardHeader(getActivity());
-//
-//            //Set the header title
-//            header.setTitle(getString(R.string.title_section1));
-//
-//            card.addCardHeader(header);
-//
-//            //Set the card inner text
-//            card.setTitle(getString(R.string.title_section2));
-//
-//            //Set card in the cardView
-//            CardView cardView = (CardView) getActivity().findViewById(R.id.card_view);
-//            cardView.setCard(card);
-//
-//        }
+        private void initCardMainList() {
+
+        }
 
         private void initCardList() {
             ArrayList<Card> cards = new ArrayList<Card>();
@@ -201,27 +182,27 @@ public class MainActivity extends Activity
 
             //Create a CardHeader
             CardHeader header = new CardHeader(getActivity());
-           // ....
+            // ....
             //Add Header to card
             card.addCardHeader(header);
 
-          //  cards.add(card);
+            //  cards.add(card);
 
-            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(),cards);
+            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
 
             CardListView listView = (CardListView) getActivity().findViewById(R.id.mylist);
-            if (listView!=null){
+            if (listView != null) {
                 listView.setAdapter(mCardArrayAdapter);
             }
 
-        card.setOnClickListener(new Card.OnCardClickListener() {
-            @Override
-                    public void onClick(Card card, View view) {
-                   Toast.makeText(getActivity(),
-                           "Click ListItem Number ", Toast.LENGTH_LONG)
-                           .show();
-               }
-        });
+            card.setOnClickListener(new Card.OnCardClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+                    Toast.makeText(getActivity(),
+                            "Click ListItem Number ", Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
 
             //You can set a SwipeListener.
             card.setOnSwipeListener(new Card.OnSwipeListener() {
@@ -231,19 +212,18 @@ public class MainActivity extends Activity
                 }
             });
 
-            String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+            String[] values = new String[]{"Android", "iPhone", "WindowsMobile",
                     "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
                     "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
                     "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                    "Android", "iPhone", "WindowsMobile" };
+                    "Android", "iPhone", "WindowsMobile"};
 
             for (int i = 0; i < values.length; i++) {
                 cards.add(card);
             }
 
 
-             card.setTitle("Dude, Wheres my Index");
-            //mCardArrayAdapter.setInnerViewTypeCount(2);
+            card.setTitle("Dude, Wheres my Index");
 
 
         }
